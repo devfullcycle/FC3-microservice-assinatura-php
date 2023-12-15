@@ -15,7 +15,8 @@
         "test": "./vendor/bin/pest"
     },
     "require-dev": {
-        "pestphp/pest": "^2.28"
+        "pestphp/pest": "^2.28",
+        "mockery/mockery": "^1.6"
     },
     "config": {
         "allow-plugins": {
