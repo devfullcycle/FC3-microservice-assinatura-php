@@ -1,0 +1,15 @@
+{
+    "name": "devfullcycle/fc3-microservice-subscription",
+    "autoload": {
+        "psr-4": {
+            "Core\\": "src/Core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Carlos Ferreira",
+            "email": "carlos@fullcycle.com.br"
+        }
+    ],
+    "require": {}
+}
