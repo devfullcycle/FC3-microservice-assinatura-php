@@ -7,9 +7,9 @@ use Core\SeedWork\Domain\ValueObjects\Uuid;
 class Plan
 {
     public function __construct(
-        protected ?Uuid $id = null,
         protected string $name,
         protected string $description,
+        protected ?Uuid $id = null,
     ) {
         $this->id = $this->id ?? Uuid::random();
     }
