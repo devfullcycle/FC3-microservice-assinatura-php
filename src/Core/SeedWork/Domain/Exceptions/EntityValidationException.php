@@ -4,7 +4,7 @@ namespace Core\SeedWork\Domain\Exceptions;
 
 use Exception;
 
-class EntityValidation extends Exception
+class EntityValidationException extends Exception
 {
 
 }

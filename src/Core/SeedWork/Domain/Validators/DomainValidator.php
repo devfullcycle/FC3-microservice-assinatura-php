@@ -2,14 +2,14 @@
 
 namespace Core\SeedWork\Domain\Validators;
 
-use Core\SeedWork\Domain\Exceptions\EntityValidation;
+use Core\SeedWork\Domain\Exceptions\EntityValidationException;
 
 class DomainValidator
 {
-    public static function notNull(?string $value = null): void
+    public static function notNull(?string $value = null, ?string $exceptionMessage = null): void
     {
         if (empty($value)) {
-            throw new EntityValidation('Should not be empty');
+            throw new EntityValidationException($exceptionMessage ?? 'Should not be empty');
         }
     }
 }
