@@ -13,10 +13,10 @@ class DomainValidator
         }
     }
 
-    public static function strMaxLength(string $value = ''): void
+    public static function strMaxLength(string $value = '', int $length = 255, ?string $exceptionMessage = null): void
     {
-        if (strlen($value) >= 255) {
-            throw new EntityValidationException('The value must not be greater than 255 characters');
+        if (strlen($value) > $length) {
+            throw new EntityValidationException($exceptionMessage ?? "The value must not be greater than {$length} characters");
         }
     }
 }
