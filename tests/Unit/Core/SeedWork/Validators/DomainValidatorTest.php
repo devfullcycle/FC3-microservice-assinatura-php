@@ -16,3 +16,11 @@ test('should be string and max characters', function () {
     $value = Factory::create()->sentence(255);
     DomainValidator::strMaxLength(value: $value);
 })->throws(EntityValidationException::class, 'The value must not be greater than 255 characters');
+
+test('should be string and max characters - with custom length', function () {
+    DomainValidator::strMaxLength(value: 'abcd', length: 2);
+})->throws(EntityValidationException::class, 'The value must not be greater than 2 characters');
+
+test('should be string and max characters - with custom length - with custom message error', function () {
+    DomainValidator::strMaxLength(value: 'abcde', length: 4, exceptionMessage: 'need be less 2');
+})->throws(EntityValidationException::class, 'need be less 2');
