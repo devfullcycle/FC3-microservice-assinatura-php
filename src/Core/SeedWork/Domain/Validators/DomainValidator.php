@@ -12,4 +12,11 @@ class DomainValidator
             throw new EntityValidationException($exceptionMessage ?? 'Should not be empty');
         }
     }
+
+    public static function strMaxLength(string $value = ''): void
+    {
+        if (strlen($value) >= 255) {
+            throw new EntityValidationException('The value must not be greater than 255 characters');
+        }
+    }
 }
