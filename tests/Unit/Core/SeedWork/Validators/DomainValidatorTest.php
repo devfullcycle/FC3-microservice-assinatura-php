@@ -24,3 +24,15 @@ test('should be string and max characters - with custom length', function () {
 test('should be string and max characters - with custom length - with custom message error', function () {
     DomainValidator::strMaxLength(value: 'abcde', length: 4, exceptionMessage: 'need be less 2');
 })->throws(EntityValidationException::class, 'need be less 2');
+
+test('should be string and min characters', function () {
+    DomainValidator::strMinLength(value: 'a');
+})->throws(EntityValidationException::class, 'The value must be at least 3 characters');
+
+test('should be string and min characters - with custom length', function () {
+    DomainValidator::strMinLength(value: 'abcd', length: 10);
+})->throws(EntityValidationException::class, 'The value must be at least 10 characters');
+
+test('should be string and min characters - with custom length - with custom message error', function () {
+    DomainValidator::strMinLength(value: 'abc', length: 4, exceptionMessage: 'need be more 2');
+})->throws(EntityValidationException::class, 'need be more 2');
