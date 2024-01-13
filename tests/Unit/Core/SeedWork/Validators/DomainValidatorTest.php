@@ -36,3 +36,21 @@ test('should be string and min characters - with custom length', function () {
 test('should be string and min characters - with custom length - with custom message error', function () {
     DomainValidator::strMinLength(value: 'abc', length: 4, exceptionMessage: 'need be more 2');
 })->throws(EntityValidationException::class, 'need be more 2');
+
+test('should be null or max string length', function () {
+    DomainValidator::strCanNullAndMaxLength(value: null);
+    expect(true)->toBeTrue();
+});
+
+test('should throws exceptions when string max length', function () {
+    $value = Factory::create()->sentence(255);
+    DomainValidator::strCanNullAndMaxLength(value: $value);
+})->throws(EntityValidationException::class, 'The value must not be greater than 255 characters');
+
+test('should throws exceptions when string max length - custom length', function () {
+    DomainValidator::strCanNullAndMaxLength(value: 'abcd', length: 2);
+})->throws(EntityValidationException::class, 'The value must not be greater than 2 characters');
+
+test('should throws exceptions when string max length - custom length - custom message', function () {
+    DomainValidator::strCanNullAndMaxLength(value: 'abcd', length: 2, exceptionMessage: 'need be less 2');
+})->throws(EntityValidationException::class, 'need be less 2');
