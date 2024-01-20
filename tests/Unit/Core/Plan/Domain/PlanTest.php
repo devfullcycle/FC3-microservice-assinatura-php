@@ -1,7 +1,9 @@
 <?php
 
 use Core\Plan\Domain\Plan;
+use Core\SeedWork\Domain\Exceptions\EntityValidationException;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
+use Faker\Factory;
 
 it('should access all properties', function () {
     $plan = new Plan(
@@ -27,3 +29,18 @@ it('should use uuid passed', function () {
     expect($plan->id)->toBe($id);
     expect($plan->id())->toBe((string) $id);
 });
+
+it('should throws exceptions when name is wrong - less 2', function () {
+    new Plan(
+        name: 'a',
+        description: 'desc test',
+    );
+})->throws(EntityValidationException::class, 'The value must be at least 3 characters');
+
+it('should throws exceptions when name is wrong - more 255', function () {
+    $name = Factory::create()->sentence(255);
+    new Plan(
+        name: $name,
+        description: 'desc test',
+    );
+})->throws(EntityValidationException::class, 'The value must not be greater than 255 characters');
