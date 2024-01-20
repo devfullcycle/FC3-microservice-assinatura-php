@@ -44,3 +44,18 @@ it('should throws exceptions when name is wrong - more 255', function () {
         description: 'desc test',
     );
 })->throws(EntityValidationException::class, 'The value must not be greater than 255 characters');
+
+it('should throws exceptions when description is wrong - less 10', function () {
+    new Plan(
+        name: 'plan platinum',
+        description: 'desc',
+    );
+})->throws(EntityValidationException::class, 'The value must be at least 5 characters');
+
+it('should throws exceptions when description is wrong - more 10000', function () {
+    $description = Factory::create()->sentence(10000);
+    new Plan(
+        name: 'plan premium',
+        description: $description,
+    );
+})->throws(EntityValidationException::class, 'The value must not be greater than 10000 characters');
