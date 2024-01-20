@@ -2,6 +2,7 @@
 
 namespace Core\Plan\Domain;
 
+use Core\SeedWork\Domain\Validators\DomainValidator;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
 
 class Plan
@@ -12,6 +13,7 @@ class Plan
         protected ?Uuid $id = null,
     ) {
         $this->id = $this->id ?? Uuid::random();
+        $this->validate();
     }
     
     public function __get($property)
@@ -22,5 +24,11 @@ class Plan
     public function id(): string
     {
         return $this->id;
+    }
+
+    private function validate(): void
+    {
+        DomainValidator::strMinLength($this->name);
+        DomainValidator::strMaxLength($this->name);
     }
 }
