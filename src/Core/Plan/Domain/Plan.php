@@ -2,11 +2,14 @@
 
 namespace Core\Plan\Domain;
 
+use Core\SeedWork\Domain\Traits\MethodsMagicTrait;
 use Core\SeedWork\Domain\Validators\DomainValidator;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
 
 class Plan
 {
+    use MethodsMagicTrait;
+
     public function __construct(
         protected string $name,
         protected string $description,
@@ -14,16 +17,6 @@ class Plan
     ) {
         $this->id = $this->id ?? Uuid::random();
         $this->validate();
-    }
-    
-    public function __get($property)
-    {
-        return $this->{$property};
-    }
-
-    public function id(): string
-    {
-        return $this->id;
     }
 
     public function update(string $name, ?string $description = null): void
