@@ -30,5 +30,13 @@ class Plan
     {
         DomainValidator::strMinLength($this->name);
         DomainValidator::strMaxLength($this->name);
+        DomainValidator::strMaxLength(
+            value: $this->description,
+            length: 10000
+        );
+        DomainValidator::strMinLength(
+            value: $this->description,
+            length: 5
+        );
     }
 }
