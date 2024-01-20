@@ -30,6 +30,8 @@ class Plan
     {
         $this->name = $name;
         $this->description = $description ?? $this->description;
+
+        $this->validate();
     }
 
     private function validate(): void
