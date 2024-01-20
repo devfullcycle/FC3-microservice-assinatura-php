@@ -78,3 +78,25 @@ it('should update values entity', function () {
     expect($plan->name)->toBe('name updated(2)');
     expect($plan->description)->toBe('desc updated');
 });
+
+it('should throws exception when update entity with wrong name', function () {
+    $plan = new Plan(
+        name: 'plan premium',
+        description: 'description of plan'
+    );
+    $plan->update(
+        name: 'na',
+        description: 'desc updated'
+    );
+})->throws(EntityValidationException::class);
+
+it('should throws exception when update entity with wrong description', function () {
+    $plan = new Plan(
+        name: 'plan premium',
+        description: 'description of plan'
+    );
+    $plan->update(
+        name: 'plan premium',
+        description: 'desc'
+    );
+})->throws(EntityValidationException::class);
