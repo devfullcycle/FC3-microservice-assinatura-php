@@ -59,3 +59,22 @@ it('should throws exceptions when description is wrong - more 10000', function (
         description: $description,
     );
 })->throws(EntityValidationException::class, 'The value must not be greater than 10000 characters');
+
+it('should update values entity', function () {
+    $plan = new Plan(
+        name: 'plan premium',
+        description: 'description of plan'
+    );
+    $plan->update(
+        name: 'name updated',
+        description: 'desc updated'
+    );
+    expect($plan->name)->toBe('name updated');
+    expect($plan->description)->toBe('desc updated');
+
+    $plan->update(
+        name: 'name updated(2)'
+    );
+    expect($plan->name)->toBe('name updated(2)');
+    expect($plan->description)->toBe('desc updated');
+});
