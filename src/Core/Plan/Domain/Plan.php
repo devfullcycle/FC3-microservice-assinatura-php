@@ -26,6 +26,12 @@ class Plan
         return $this->id;
     }
 
+    public function update(string $name, ?string $description = null): void
+    {
+        $this->name = $name;
+        $this->description = $description ?? $this->description;
+    }
+
     private function validate(): void
     {
         DomainValidator::strMinLength($this->name);
