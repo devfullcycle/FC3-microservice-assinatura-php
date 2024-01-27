@@ -2,7 +2,7 @@
 
 namespace Core\Plan\Domain\Repositories;
 
-use Core\Plan\Domain\Plan;
+use Core\Plan\Domain\Entities\Plan;
 
 interface PlanRepositoryInterface
 {
