@@ -16,10 +16,6 @@ class GetPlanUseCase
     {
         $plan = $this->repository->findById($input->id);
 
-        return new OutputPlanDTO(
-            id: $plan->id(),
-            name: $plan->name,
-            description: $plan->description,
-        );
+        return OutputPlanDTO::fromEntity($plan);
     }
 }

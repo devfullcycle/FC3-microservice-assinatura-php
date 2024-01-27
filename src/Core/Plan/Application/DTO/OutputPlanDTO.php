@@ -2,6 +2,8 @@
 
 namespace Core\Plan\Application\DTO;
 
+use Core\Plan\Domain\Entities\Plan;
+
 class OutputPlanDTO
 {
     public function __construct(
@@ -9,5 +11,14 @@ class OutputPlanDTO
         public string $name,
         public string $description,
     ) {
+    }
+
+    public static function fromEntity(Plan $plan): self
+    {
+        return new self(
+            id: $plan->id(),
+            name: $plan->name,
+            description: $plan->description,
+        );
     }
 }
