@@ -1,6 +1,6 @@
 <?php
 
-use Core\Plan\Domain\Plan;
+use Core\Plan\Domain\Entities\Plan;
 use Core\SeedWork\Domain\Exceptions\EntityValidationException;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
 use Faker\Factory;

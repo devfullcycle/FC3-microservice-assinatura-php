@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Plan\Domain;
+namespace Core\Plan\Domain\Entities;
 
 use Core\SeedWork\Domain\Traits\MethodsMagicTrait;
 use Core\SeedWork\Domain\Validators\DomainValidator;
