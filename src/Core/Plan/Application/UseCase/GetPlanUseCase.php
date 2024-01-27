@@ -14,6 +14,12 @@ class GetPlanUseCase
 
     public function execute(InputPlanDTO $input): OutputPlanDTO
     {
-        return new OutputPlanDTO();
+        $plan = $this->repository->findById($input->id);
+
+        return new OutputPlanDTO(
+            id: $plan->id(),
+            name: $plan->name,
+            description: $plan->description,
+        );
     }
 }

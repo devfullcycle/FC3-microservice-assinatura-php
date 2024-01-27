@@ -16,7 +16,7 @@ test('should return plan', function () {
 
         public function findById(string $id): Plan
         {
-            throw new \Exception('Not implemented');
+            return new Plan('name_plan', 'description_plan');
         }
 
         /**
@@ -51,4 +51,8 @@ test('should return plan', function () {
     $response = $useCase->execute(input: $dto);
 
     expect($response)->toBeInstanceOf(OutputPlanDTO::class);
+    expect($response->id)->not->toBeNull();
+    expect($response->id)->toBeString();
+    expect($response->name)->toBe('name_plan');
+    expect($response->description)->toBe('description_plan');
 });
