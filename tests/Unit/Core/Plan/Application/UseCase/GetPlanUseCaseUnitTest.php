@@ -1,5 +1,7 @@
 <?php
 
+use Core\Plan\Application\DTO\InputPlanDTO;
+use Core\Plan\Application\DTO\OutputPlanDTO;
 use Core\Plan\Application\UseCase\GetPlanUseCase;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PaginationInterface;
@@ -43,4 +45,10 @@ test('should return plan', function () {
     $useCase = new GetPlanUseCase(
         repository: new anonymous()
     );
+    $dto = new InputPlanDTO(
+        id: '123.123.3212'
+    );
+    $response = $useCase->execute(input: $dto);
+
+    expect($response)->toBeInstanceOf(OutputPlanDTO::class);
 });
