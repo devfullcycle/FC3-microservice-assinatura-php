@@ -25,4 +25,10 @@ test('should get all plans', function () {
 
     $response = $useCase->execute(input: $inputDto);
     expect($response)->toBeInstanceOf(OutputPlansDTO::class);
+    expect($response->items)->toBeArray();
+    expect($response->last_page)->toBe(1);
+    expect($response->first_page)->toBe(1);
+    expect($response->total_per_page)->toBe(15);
+    expect($response->next_page)->toBe(1);
+    expect($response->previous_page)->toBe(1);
 });

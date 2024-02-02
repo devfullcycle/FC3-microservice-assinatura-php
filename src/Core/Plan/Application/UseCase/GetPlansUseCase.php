@@ -24,11 +24,11 @@ class GetPlansUseCase
         return new OutputPlansDTO(
             items: $response->items(),
             total: $response->total(),
-            lastPage: $response->lastPage(),
-            firstPage: $response->firstPage(),
-            totalPerPage: $response->totalPerPage(),
-            nextPage: $response->nextPage(),
-            previousPage: $response->previousPage(),
+            last_page: $response->lastPage(),
+            first_page: $response->firstPage(),
+            total_per_page: $response->totalPerPage(),
+            next_page: $response->nextPage(),
+            previous_page: $response->previousPage(),
         );
     }
 }
