@@ -6,6 +6,7 @@ use Core\Plan\Application\UseCase\GetPlanUseCase;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PaginationInterface;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
+use Core\SeedWork\Domain\Exceptions\EntityNotFoundException;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
 
 test('should return plan', function () {
@@ -35,3 +36,19 @@ test('should return plan', function () {
     expect($response->name)->toBe('name_plan');
     expect($response->description)->toBe('description_plan');
 });
+
+test('should throw not found exception', function () {
+    $mockRepository = Mockery::mock(PlanRepositoryInterface::class);
+    $mockRepository->shouldReceive('findById')
+                    ->times(1)
+                    ->andThrows(new EntityNotFoundException('Plan not found'));
+    $useCase = new GetPlanUseCase(
+        repository: $mockRepository
+    );
+
+    $useCase->execute(
+        input: new InputPlanDTO(
+            id: '123.123.3212'
+        )
+    );
+})->throws(EntityNotFoundException::class);
