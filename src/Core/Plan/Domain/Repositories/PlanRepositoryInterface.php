@@ -11,7 +11,7 @@ interface PlanRepositoryInterface
     public function findById(string $id): Plan;
 
     /**
-     * @return stdClass[]
+     * @return Plan[]
      */
     public function findAll(string $filter = '', string $orderBy = 'DESC'): array;
 

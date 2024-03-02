@@ -11,7 +11,7 @@ class PaginationStub implements PaginationInterface
     }
 
     /**
-     * @return array<stdClass>
+     * @return array<Plan>
      */
     public function items(): array
     {

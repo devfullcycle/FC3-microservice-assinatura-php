@@ -3,6 +3,7 @@
 namespace Core\Plan\Application\UseCase;
 
 use Core\Plan\Application\DTO\InputPlansDTO;
+use Core\Plan\Application\DTO\OutputPlanDTO;
 use Core\Plan\Application\DTO\OutputPlansDTO;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 
@@ -20,9 +21,10 @@ class GetPlansUseCase
             page: $input->page,
             totalPerPage: $input->totalPerPage
         );
-
+        $items = array_map(fn ($entity) => OutputPlanDTO::fromEntity($entity), $response->items());
+        
         return new OutputPlansDTO(
-            items: $response->items(),
+            items: $items,
             total: $response->total(),
             last_page: $response->lastPage(),
             first_page: $response->firstPage(),
