@@ -1,8 +1,10 @@
 <?php
 
 use Core\Plan\Application\DTO\InputPlansDTO;
+use Core\Plan\Application\DTO\OutputPlanDTO;
 use Core\Plan\Application\DTO\OutputPlansDTO;
 use Core\Plan\Application\UseCase\GetPlansUseCase;
+use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 use Tests\Stubs\PaginationStub;
 
@@ -13,7 +15,14 @@ test('should get all plans', function () {
         page: 2,
         totalPerPage: 10
     );
-    $stubPagination = new PaginationStub();
+    $stubPagination = new PaginationStub(
+        items: [
+            new Plan('name1', 'description'),
+            new Plan('name2', 'description'),
+            new Plan('name3', 'description'),
+            new Plan('name4', 'description'),
+        ]
+    );
     $mockRepository = Mockery::mock(PlanRepositoryInterface::class);
     $mockRepository->shouldReceive('paginate')
                 ->times(1)
@@ -26,6 +35,7 @@ test('should get all plans', function () {
     $response = $useCase->execute(input: $inputDto);
     expect($response)->toBeInstanceOf(OutputPlansDTO::class);
     expect($response->items)->toBeArray();
+    array_map(fn ($item) => expect($item)->toBeInstanceOf(OutputPlanDTO::class), $response->items);
     expect($response->last_page)->toBe(1);
     expect($response->first_page)->toBe(1);
     expect($response->total_per_page)->toBe(15);
