@@ -1,4 +1,4 @@
-# Laravel 11 + Docker ()
+# Laravel 11 + Docker (Microservice Subscription FC3)
 
 ### Passo a passo
 Clone Repositório
@@ -20,13 +20,13 @@ docker-compose up -d
 ```
 
 
-Acessar o container
+Acesse o container
 ```sh
 docker-compose exec app bash
 ```
 
 
-Instalar as dependências do projeto
+Instale as dependências do projeto
 ```sh
 composer install
 ```
@@ -43,5 +43,5 @@ php artisan key:generate
 ```
 
 
-Acessar o projeto
+Acesse o projeto
 [http://localhost:8890](http://localhost:8890)
