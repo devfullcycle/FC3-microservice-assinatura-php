@@ -32,3 +32,12 @@ test('should insert plan in database', function () {
 test('should throws exception when not found plan', function () {
     $this->repository->findById('fake');
 })->throws(EntityNotFoundException::class, 'Plan not found');
+
+test('should return entity', function () {
+    $planFactory = Model::factory()->create();
+    $entity = $this->repository->findById($planFactory->id);
+
+    expect($entity->id())->toBe($planFactory->id);
+    expect($entity->name)->toBe($planFactory->name);
+    expect($entity->description)->toBe($planFactory->description);
+});
