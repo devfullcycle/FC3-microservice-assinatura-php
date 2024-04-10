@@ -45,3 +45,9 @@ test('should return empty array when not exists plans', function () {
     $entities = $this->repository->findAll();
     expect($entities)->toBe([]);
 });
+
+test('should return array of entity plan', function () {
+    Model::factory()->count(10)->create();
+    $entities = $this->repository->findAll();
+    expect(count($entities))->toBe(10);
+});
