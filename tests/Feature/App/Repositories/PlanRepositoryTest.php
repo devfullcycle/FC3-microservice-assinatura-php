@@ -7,6 +7,7 @@ use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 use Core\SeedWork\Domain\Exceptions\EntityNotFoundException;
 
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertDatabaseMissing;
 
 beforeEach(fn () => $this->repository = new PlanRepository(new Model));
 
@@ -61,4 +62,15 @@ test('should return array of entity plan - with filter', function () {
     );
     expect(count($entities))->toBe(10);
     array_map(fn (Plan $plan) => expect($plan)->toBeInstanceOf(Plan::class), $entities);
+});
+
+test('should return false when try remove plan not found', function () {
+    expect($this->repository->delete('fake'))->toBeFalse();
+});
+
+test('should return true when remove plan', function () {
+    $model = Model::factory()->create();
+
+    expect($this->repository->delete($model->id))->toBeTrue();
+    assertDatabaseMissing('plans', ['id' => $model->id]);
 });
