@@ -40,10 +40,9 @@ class PlanRepository implements PlanRepositoryInterface
      */
     public function findAll(string $filter = '', string $orderBy = 'DESC'): array
     {
-        return array_map(
-            fn (Model $model) => $this->convertModelToEntity($model),
-            $this->model->get()->toArray()
-        );
+        $response = $this->model->orderBy('name', $orderBy)->get();
+
+        return $response->map(fn (Model $model) => $this->convertModelToEntity($model))->toArray();
     }
 
     public function paginate(string $filter = '', string $orderBy = 'DESC', int $page = 1, int $totalPerPage = 15): PaginationInterface
