@@ -50,4 +50,15 @@ test('should return array of entity plan', function () {
     Model::factory()->count(10)->create();
     $entities = $this->repository->findAll();
     expect(count($entities))->toBe(10);
+    array_map(fn (Plan $plan) => expect($plan)->toBeInstanceOf(Plan::class), $entities);
+});
+
+test('should return array of entity plan - with filter', function () {
+    Model::factory()->count(10)->create();
+    Model::factory()->count(10)->create(['name' => 'plan test filter']);
+    $entities = $this->repository->findAll(
+        filter: 'plan test filter'
+    );
+    expect(count($entities))->toBe(10);
+    array_map(fn (Plan $plan) => expect($plan)->toBeInstanceOf(Plan::class), $entities);
 });
