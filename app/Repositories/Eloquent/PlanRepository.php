@@ -6,6 +6,7 @@ use App\Models\Plan as Model;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PaginationInterface;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
+use Core\SeedWork\Domain\Exceptions\EntityNotFoundException;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
 
 class PlanRepository implements PlanRepositoryInterface
@@ -28,7 +29,11 @@ class PlanRepository implements PlanRepositoryInterface
 
     public function findById(string $id): Plan
     {
-        throw new \Exception('Not Implemented');
+        if (!$model = $this->model->find($id)) {
+            throw new EntityNotFoundException('Plan not found');
+        }
+
+        return $this->convertModelToEntity($model);
     }
 
     /**
