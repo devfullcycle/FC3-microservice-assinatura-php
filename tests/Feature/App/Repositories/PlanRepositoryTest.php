@@ -40,3 +40,8 @@ test('should return entity', function () {
     expect($entity->name)->toBe($planFactory->name);
     expect($entity->description)->toBe($planFactory->description);
 });
+
+test('should return empty array when not exists plans', function () {
+    $entities = $this->repository->findAll();
+    expect($entities)->toBe([]);
+});
