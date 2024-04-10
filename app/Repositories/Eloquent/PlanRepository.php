@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Repositories\Eloquent;
+
+use Core\Plan\Domain\Entities\Plan;
+use Core\Plan\Domain\Repositories\PaginationInterface;
+use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
+
+class PlanRepository implements PlanRepositoryInterface
+{
+    public function insert(Plan $plan): Plan
+    {
+        throw new \Exception('Not Implemented');
+    }
+
+    public function findById(string $id): Plan
+    {
+        throw new \Exception('Not Implemented');
+    }
+
+    /**
+     * @return Plan[]
+     */
+    public function findAll(string $filter = '', string $orderBy = 'DESC'): array
+    {
+        throw new \Exception('Not Implemented');
+    }
+
+    public function paginate(string $filter = '', string $orderBy = 'DESC', int $page = 1, int $totalPerPage = 15): PaginationInterface
+    {
+        throw new \Exception('Not Implemented');
+    }
+
+    public function update(Plan $plan): Plan
+    {
+        throw new \Exception('Not Implemented');
+    }
+
+    public function delete(string $id): bool
+    {
+        throw new \Exception('Not Implemented');
+    }
+}
