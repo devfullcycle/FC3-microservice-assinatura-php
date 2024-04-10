@@ -1,0 +1,68 @@
+version: "3.7"
+
+services:
+    # image project
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+        networks:
+            - fullcycle
+
+    # nginx
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "8890:80"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - fullcycle
+
+    # db postgress
+    db:
+        image: postgres:latest
+        restart: unless-stopped
+        environment:
+            POSTGRES_USER: ${DB_USERNAME:-admin}
+            POSTGRES_PASSWORD: ${DB_PASSWORD:-admin}
+            PGDATA: /data/postgres
+        volumes:
+            - ./.docker/postgres:/data/postgres
+        ports:
+            - "5432:5432"
+        networks:
+            - fullcycle
+
+    pgadmin:
+        image: dpage/pgadmin4
+        restart: unless-stopped
+        environment:
+            PGADMIN_DEFAULT_EMAIL: contato@fullcycle.com.br
+            PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD:-admin}
+        volumes:
+            - ./.docker/pgadmin:/var/lib/pgadmin
+        ports:
+            - "8001:80"
+        depends_on:
+            - db
+        networks:
+            - fullcycle
+
+    # redis
+    redis:
+        image: redis:latest
+        networks:
+            - fullcycle
+
+networks:
+    fullcycle:
+        driver: bridge
