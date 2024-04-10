@@ -13,7 +13,6 @@ class PlanRepository implements PlanRepositoryInterface
 {
     public function __construct(protected Model $model)
     {
-
     }
 
     public function insert(Plan $plan): Plan
@@ -29,7 +28,7 @@ class PlanRepository implements PlanRepositoryInterface
 
     public function findById(string $id): Plan
     {
-        if (! $model = $this->model->find($id)) {
+        if (!$model = $this->model->find($id)) {
             throw new EntityNotFoundException('Plan not found');
         }
 
@@ -41,7 +40,10 @@ class PlanRepository implements PlanRepositoryInterface
      */
     public function findAll(string $filter = '', string $orderBy = 'DESC'): array
     {
-        throw new \Exception('Not Implemented');
+        return array_map(
+            fn (Model $model) => $this->convertModelToEntity($model),
+            $this->model->get()->toArray()
+        );
     }
 
     public function paginate(string $filter = '', string $orderBy = 'DESC', int $page = 1, int $totalPerPage = 15): PaginationInterface
