@@ -40,7 +40,15 @@ class PlanRepository implements PlanRepositoryInterface
      */
     public function findAll(string $filter = '', string $orderBy = 'DESC'): array
     {
-        $response = $this->model->orderBy('name', $orderBy)->get();
+        $response = $this->model
+            ->where(function ($query) use ($filter) {
+                if ($filter !== '') {
+                    $query->where('name', $filter);
+                    $query->orWhere('description', 'like', "%{$filter}%");
+                }
+            })
+            ->orderBy('name', $orderBy)
+            ->get();
 
         return $response->map(fn (Model $model) => $this->convertModelToEntity($model))->toArray();
     }
