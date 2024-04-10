@@ -29,7 +29,7 @@ class PlanRepository implements PlanRepositoryInterface
 
     public function findById(string $id): Plan
     {
-        if (!$model = $this->model->find($id)) {
+        if (! $model = $this->model->find($id)) {
             throw new EntityNotFoundException('Plan not found');
         }
 

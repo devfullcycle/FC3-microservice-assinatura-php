@@ -5,7 +5,6 @@ use App\Repositories\Eloquent\PlanRepository;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 use Core\SeedWork\Domain\Exceptions\EntityNotFoundException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use function Pest\Laravel\assertDatabaseHas;
 
