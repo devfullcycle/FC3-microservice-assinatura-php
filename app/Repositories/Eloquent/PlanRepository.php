@@ -2,15 +2,27 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Models\Plan as Model;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PaginationInterface;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 
 class PlanRepository implements PlanRepositoryInterface
 {
+    public function __construct(protected Model $model)
+    {
+
+    }
+
     public function insert(Plan $plan): Plan
     {
-        throw new \Exception('Not Implemented');
+        $this->model->create([
+            'id' => $plan->id(),
+            'name' => $plan->name,
+            'description' => $plan->description,
+        ]);
+
+        return $plan;
     }
 
     public function findById(string $id): Plan
