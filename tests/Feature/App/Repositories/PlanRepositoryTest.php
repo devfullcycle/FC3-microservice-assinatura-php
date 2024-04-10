@@ -18,6 +18,11 @@ test('should insert plan in database', function () {
 
     expect($repository)->toBeInstanceOf(PlanRepositoryInterface::class);
     assertDatabaseHas('plans', [
-        'id' => $entity->id,
+        'id' => $plan->id,
+        'name' => $plan->name,
+        'description' => $plan->description,
     ]);
+    expect($plan->id())->toBe($entity->id());
+    expect($plan->name)->toBe($entity->name);
+    expect($plan->description)->toBe($entity->description);
 });

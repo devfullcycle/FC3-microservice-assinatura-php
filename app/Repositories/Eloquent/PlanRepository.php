@@ -6,6 +6,7 @@ use App\Models\Plan as Model;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PaginationInterface;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
+use Core\SeedWork\Domain\ValueObjects\Uuid;
 
 class PlanRepository implements PlanRepositoryInterface
 {
@@ -16,13 +17,13 @@ class PlanRepository implements PlanRepositoryInterface
 
     public function insert(Plan $plan): Plan
     {
-        $this->model->create([
-            'id' => $plan->id(),
+        $model = $this->model->create([
+            'id' => (string) $plan->id(),
             'name' => $plan->name,
             'description' => $plan->description,
         ]);
 
-        return $plan;
+        return $this->convertModelToEntity($model);
     }
 
     public function findById(string $id): Plan
@@ -51,5 +52,14 @@ class PlanRepository implements PlanRepositoryInterface
     public function delete(string $id): bool
     {
         throw new \Exception('Not Implemented');
+    }
+
+    private function convertModelToEntity(Model $model): Plan
+    {
+        return new Plan(
+            id: new Uuid($model->id),
+            name: $model->name,
+            description: $model->description
+        );
     }
 }
