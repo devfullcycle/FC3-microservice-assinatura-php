@@ -65,7 +65,12 @@ class PlanRepository implements PlanRepositoryInterface
 
     public function delete(string $id): bool
     {
-        throw new \Exception('Not Implemented');
+        if (! $model = $this->model->find($id)) {
+            return false;
+        }
+        $model->delete();
+
+        return true;
     }
 
     private function convertModelToEntity(Model $model): Plan
