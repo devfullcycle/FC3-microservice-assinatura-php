@@ -63,6 +63,7 @@ class PlanRepository implements PlanRepositoryInterface
                                 $query->orWhere('description', 'like', "%{$filter}%");
                             }
                         })
+                        ->orderBy('name', $orderBy)
                         ->paginate($totalPerPage);
         return new PaginationEloquentAdapter($results);
     }
