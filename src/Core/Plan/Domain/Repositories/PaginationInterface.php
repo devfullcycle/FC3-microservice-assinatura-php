@@ -13,11 +13,11 @@ interface PaginationInterface
 
     public function lastPage(): int;
 
-    public function firstPage(): int;
+    public function firstPage(): ?int;
 
     public function totalPerPage(): int;
 
-    public function nextPage(): int;
+    public function nextPage(): ?int;
 
-    public function previousPage(): int;
+    public function previousPage(): ?int;
 }
