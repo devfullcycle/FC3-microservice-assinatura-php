@@ -58,9 +58,13 @@ class PlanRepository implements PlanRepositoryInterface
         throw new \Exception('Not Implemented');
     }
 
-    public function update(Plan $plan): Plan
+    public function update(Plan $plan): Plan|null
     {
-        throw new \Exception('Not Implemented');
+        if (! $model = $this->model->find($plan->id())) {
+            return null;
+        }
+
+        return $plan;
     }
 
     public function delete(string $id): bool
