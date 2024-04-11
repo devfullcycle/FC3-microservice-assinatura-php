@@ -119,3 +119,18 @@ test('should return plans with paginate', function () {
     expect($pagination->previousPage())->toBe(null);
     array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
 });
+
+test('should paginate with total 10 items per page', function () {
+    Model::factory()->count(100)->create();
+
+    $pagination = $this->repository->paginate(totalPerPage: 10);
+
+    expect(count($pagination->items()))->toBe(10);
+    expect($pagination->total())->toBe(100);
+    expect($pagination->lastPage())->toBe(10);
+    expect($pagination->firstPage())->toBe(1);
+    expect($pagination->totalPerPage())->toBe(10);
+    expect($pagination->nextPage())->toBe(2);
+    expect($pagination->previousPage())->toBe(null);
+    array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
+});
