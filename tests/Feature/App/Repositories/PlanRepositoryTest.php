@@ -5,6 +5,7 @@ use App\Repositories\Eloquent\PlanRepository;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 use Core\SeedWork\Domain\Exceptions\EntityNotFoundException;
+use Core\SeedWork\Domain\ValueObjects\Uuid;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
@@ -78,4 +79,22 @@ test('should return true when remove plan', function () {
 test('should return null when not found plan', function () {
     $plan = new Plan('name', 'description');
     expect($this->repository->update($plan))->toBeNull();
+});
+
+test('should update plan', function () {
+    $model = Model::factory()->create();
+    $plan = new Plan(
+        id: new Uuid($model->id),
+        name: 'new name',
+        description: 'new description'
+    );
+    $entity = $this->repository->update($plan);
+
+    expect($entity->name)->toBe($entity->name);
+    expect($entity->description)->toBe($entity->description);
+    assertDatabaseHas('plans', [
+        'id' => $model->id,
+        'name' => $plan->name,
+        'description' => $plan->description,
+    ]);
 });
