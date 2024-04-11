@@ -63,15 +63,6 @@ class PaginationEloquentAdapter extends LengthAwarePaginator implements Paginati
      */
     private function convertArrayToStdClass(array $items): array
     {
-        $response = [];
-        foreach ($items as $item) {
-            $stdClass = new stdClass;
-            foreach ($item->toArray() as $key => $value) {
-                $stdClass->{$key} = $value;
-            }
-            array_push($response, $stdClass);
-        }
-
-        return $response;
+        return array_map(fn ($item) => (object) $item->toArray(), $items);
     }
 }
