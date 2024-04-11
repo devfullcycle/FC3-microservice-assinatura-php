@@ -161,3 +161,18 @@ test('should paginate with filter', function () {
     expect($pagination->previousPage())->toBe(null);
     array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
 });
+
+test('should paginate with custom page', function () {
+    Model::factory()->count(100)->create();
+
+    $pagination = $this->repository->paginate(page: 2);
+
+    expect(count($pagination->items()))->toBe(15);
+    expect($pagination->total())->toBe(100);
+    expect($pagination->lastPage())->toBe(7);
+    expect($pagination->firstPage())->toBe(1);
+    expect($pagination->totalPerPage())->toBe(15);
+    expect($pagination->nextPage())->toBe(3);
+    expect($pagination->previousPage())->toBe(1);
+    array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
+});
