@@ -74,3 +74,8 @@ test('should return true when remove plan', function () {
     expect($this->repository->delete($model->id))->toBeTrue();
     assertDatabaseMissing('plans', ['id' => $model->id]);
 });
+
+test('should return null when not found plan', function () {
+    $plan = new Plan('name', 'description');
+    expect($this->repository->update($plan))->toBeNull();
+});
