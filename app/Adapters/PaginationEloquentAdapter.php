@@ -33,7 +33,7 @@ class PaginationEloquentAdapter extends LengthAwarePaginator implements Paginati
 
     public function firstPage(): ?int
     {
-        return $this->paginator->firstItem();
+        return $this->paginator->firstItem() === null ? null : 1;
     }
 
     public function totalPerPage(): int
@@ -55,7 +55,7 @@ class PaginationEloquentAdapter extends LengthAwarePaginator implements Paginati
             return null;
         }
 
-        return (int) $this->paginator->current() - 1;
+        return (int) $this->paginator->currentPage() - 1;
     }
 
     /**
