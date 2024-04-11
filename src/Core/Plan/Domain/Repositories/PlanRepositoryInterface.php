@@ -17,7 +17,7 @@ interface PlanRepositoryInterface
 
     public function paginate(string $filter = '', string $orderBy = 'DESC', int $page = 1, int $totalPerPage = 15): PaginationInterface;
 
-    public function update(Plan $plan): Plan;
+    public function update(Plan $plan): Plan|null;
 
     public function delete(string $id): bool;
 }
