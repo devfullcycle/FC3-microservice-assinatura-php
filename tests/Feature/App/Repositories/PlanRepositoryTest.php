@@ -98,3 +98,8 @@ test('should update plan', function () {
         'description' => $plan->description,
     ]);
 });
+
+test('should return empty array when not exists plans - paginate', function () {
+    $pagination = $this->repository->paginate();
+    expect($pagination->items())->toBe([]);
+});
