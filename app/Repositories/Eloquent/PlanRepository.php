@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Adapters\PaginationEloquentAdapter;
 use App\Models\Plan as Model;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PaginationInterface;
@@ -55,7 +56,8 @@ class PlanRepository implements PlanRepositoryInterface
 
     public function paginate(string $filter = '', string $orderBy = 'DESC', int $page = 1, int $totalPerPage = 15): PaginationInterface
     {
-        throw new \Exception('Not Implemented');
+        $models = $this->model->paginate();
+        return new PaginationEloquentAdapter($models);
     }
 
     public function update(Plan $plan): Plan|null
