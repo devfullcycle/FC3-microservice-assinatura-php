@@ -117,6 +117,7 @@ test('should return plans with paginate', function () {
     expect($pagination->totalPerPage())->toBe(15);
     expect($pagination->nextPage())->toBe(2);
     expect($pagination->previousPage())->toBe(null);
+    expect($pagination->currentPage())->toBe(1);
     array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
 });
 
@@ -132,6 +133,7 @@ test('should paginate with total 10 items per page', function () {
     expect($pagination->totalPerPage())->toBe(10);
     expect($pagination->nextPage())->toBe(2);
     expect($pagination->previousPage())->toBe(null);
+    expect($pagination->currentPage())->toBe(1);
     array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
 });
 
@@ -148,6 +150,7 @@ test('should paginate with filter', function () {
     expect($pagination->totalPerPage())->toBe(15);
     expect($pagination->nextPage())->toBe(2);
     expect($pagination->previousPage())->toBe(null);
+    expect($pagination->currentPage())->toBe(1);
     array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
 
     $pagination = $this->repository->paginate(filter: 'plan filter', totalPerPage: 10);
@@ -159,6 +162,7 @@ test('should paginate with filter', function () {
     expect($pagination->totalPerPage())->toBe(10);
     expect($pagination->nextPage())->toBe(2);
     expect($pagination->previousPage())->toBe(null);
+    expect($pagination->currentPage())->toBe(1);
     array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
 });
 
@@ -174,5 +178,6 @@ test('should paginate with custom page', function () {
     expect($pagination->totalPerPage())->toBe(15);
     expect($pagination->nextPage())->toBe(3);
     expect($pagination->previousPage())->toBe(1);
+    expect($pagination->currentPage())->toBe(2);
     array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
 });

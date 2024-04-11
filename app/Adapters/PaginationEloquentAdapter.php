@@ -58,6 +58,11 @@ class PaginationEloquentAdapter extends LengthAwarePaginator implements Paginati
         return (int) $this->paginator->currentPage() - 1;
     }
 
+    public function currentPage(): int
+    {
+        return $this->paginator->currentPage();
+    }
+
     /**
      * @return stdClass[]
      */
