@@ -29,23 +29,30 @@ class PaginationEloquentAdapter extends LengthAwarePaginator implements Paginati
         return (int) $this->paginator->lastPage();
     }
 
-    public function firstPage(): int
+    public function firstPage(): ?int
     {
-        return (int) $this->paginator->firstPage();
+        return $this->paginator->firstItem();
     }
 
     public function totalPerPage(): int
     {
-        return (int) $this->paginator->totalPerPage();
+        return (int) $this->paginator->perPage();
     }
 
-    public function nextPage(): int
+    public function nextPage(): ?int
     {
-        return (int) $this->paginator->nextPage();
+        if (!$this->paginator->hasMorePages()) {
+            return null;
+        }
+        return (int) $this->paginator->currentPage() + 1;
     }
 
-    public function previousPage(): int
+    public function previousPage(): ?int
     {
-        return (int) $this->paginator->previousPage();
+        if ($this->paginator->currentPage() === 1) {
+            return null;
+        }
+
+        return (int) $this->paginator->current() - 1;
     }
 }
