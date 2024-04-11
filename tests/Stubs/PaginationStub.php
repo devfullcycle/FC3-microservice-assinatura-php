@@ -28,7 +28,7 @@ class PaginationStub implements PaginationInterface
         return 1;
     }
 
-    public function firstPage(): int
+    public function firstPage(): ?int
     {
         return 1;
     }
@@ -38,12 +38,17 @@ class PaginationStub implements PaginationInterface
         return 15;
     }
 
-    public function nextPage(): int
+    public function nextPage(): ?int
     {
         return 1;
     }
 
-    public function previousPage(): int
+    public function previousPage(): ?int
+    {
+        return 1;
+    }
+
+    public function currentPage(): int
     {
         return 1;
     }
