@@ -3,7 +3,6 @@
 namespace App\Adapters;
 
 use Core\Plan\Domain\Repositories\PaginationInterface;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use stdClass;
 
@@ -43,9 +42,10 @@ class PaginationEloquentAdapter extends LengthAwarePaginator implements Paginati
 
     public function nextPage(): ?int
     {
-        if (!$this->paginator->hasMorePages()) {
+        if (! $this->paginator->hasMorePages()) {
             return null;
         }
+
         return (int) $this->paginator->currentPage() + 1;
     }
 

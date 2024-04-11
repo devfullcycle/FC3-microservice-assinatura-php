@@ -57,25 +57,26 @@ class PlanRepository implements PlanRepositoryInterface
     public function paginate(string $filter = '', string $orderBy = 'DESC', int $page = 1, int $totalPerPage = 15): PaginationInterface
     {
         $results = $this->model
-                        ->where(function ($query) use ($filter) {
-                            if ($filter !== '') {
-                                $query->whereName($filter);
-                                $query->orWhere('description', 'like', "%{$filter}%");
-                            }
-                        })
-                        ->orderBy('name', $orderBy)
-                        ->paginate($totalPerPage, ['*'], 'page', $page);
+            ->where(function ($query) use ($filter) {
+                if ($filter !== '') {
+                    $query->whereName($filter);
+                    $query->orWhere('description', 'like', "%{$filter}%");
+                }
+            })
+            ->orderBy('name', $orderBy)
+            ->paginate($totalPerPage, ['*'], 'page', $page);
+
         return new PaginationEloquentAdapter($results);
     }
 
-    public function update(Plan $plan): Plan|null
+    public function update(Plan $plan): ?Plan
     {
         if (! $model = $this->model->find($plan->id())) {
             return null;
         }
         $model->update([
             'name' => $plan->name,
-            'description' => $plan->description
+            'description' => $plan->description,
         ]);
 
         return $this->convertModelToEntity($model);
