@@ -2,7 +2,7 @@
 
 namespace Tests\Stubs;
 
-use Core\Plan\Domain\Repositories\PaginationInterface;
+use Core\SeedWork\Domain\Repositories\PaginationInterface;
 
 class PaginationStub implements PaginationInterface
 {

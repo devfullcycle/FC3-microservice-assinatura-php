@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Plan\Domain\Repositories;
+namespace Core\SeedWork\Domain\Repositories;
 
 interface PaginationInterface
 {

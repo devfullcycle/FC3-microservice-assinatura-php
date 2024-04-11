@@ -5,9 +5,9 @@ namespace App\Repositories\Eloquent;
 use App\Adapters\PaginationEloquentAdapter;
 use App\Models\Plan as Model;
 use Core\Plan\Domain\Entities\Plan;
-use Core\Plan\Domain\Repositories\PaginationInterface;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 use Core\SeedWork\Domain\Exceptions\EntityNotFoundException;
+use Core\SeedWork\Domain\Repositories\PaginationInterface;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
 
 class PlanRepository implements PlanRepositoryInterface

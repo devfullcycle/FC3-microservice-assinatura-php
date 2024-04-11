@@ -3,6 +3,7 @@
 namespace Core\Plan\Domain\Repositories;
 
 use Core\Plan\Domain\Entities\Plan;
+use Core\SeedWork\Domain\Repositories\PaginationInterface;
 
 interface PlanRepositoryInterface
 {

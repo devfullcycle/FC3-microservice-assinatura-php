@@ -2,7 +2,7 @@
 
 namespace App\Adapters;
 
-use Core\Plan\Domain\Repositories\PaginationInterface;
+use Core\SeedWork\Domain\Repositories\PaginationInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
 use stdClass;
 
