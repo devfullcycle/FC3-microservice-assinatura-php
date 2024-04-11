@@ -107,12 +107,15 @@ test('should return empty array when not exists plans - paginate', function () {
 
 test('should return plans with paginate', function () {
     Model::factory()->count(100)->create();
+
     $pagination = $this->repository->paginate();
-    // expect($pagination->items())->toBe([]);
+
+    expect(count($pagination->items()))->toBe(15);
     expect($pagination->total())->toBe(100);
     expect($pagination->lastPage())->toBe(7);
     expect($pagination->firstPage())->toBe(1);
     expect($pagination->totalPerPage())->toBe(15);
     expect($pagination->nextPage())->toBe(2);
     expect($pagination->previousPage())->toBe(null);
+    array_map(fn ($entity) => expect($entity)->toBeInstanceOf(stdClass::class), $pagination->items());
 });

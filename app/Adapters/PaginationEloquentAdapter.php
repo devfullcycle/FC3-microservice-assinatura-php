@@ -3,7 +3,9 @@
 namespace App\Adapters;
 
 use Core\Plan\Domain\Repositories\PaginationInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use stdClass;
 
 class PaginationEloquentAdapter extends LengthAwarePaginator implements PaginationInterface
 {
@@ -16,7 +18,7 @@ class PaginationEloquentAdapter extends LengthAwarePaginator implements Paginati
      */
     public function items(): array
     {
-        return $this->paginator->items();
+        return $this->convertArrayToStdClass($this->paginator->items());
     }
 
     public function total(): int
@@ -54,5 +56,22 @@ class PaginationEloquentAdapter extends LengthAwarePaginator implements Paginati
         }
 
         return (int) $this->paginator->current() - 1;
+    }
+
+    /**
+     * @return stdClass[]
+     */
+    private function convertArrayToStdClass(array $items): array
+    {
+        $response = [];
+        foreach ($items as $item) {
+            $stdClass = new stdClass;
+            foreach ($item->toArray() as $key => $value) {
+                $stdClass->{$key} = $value;
+            }
+            array_push($response, $stdClass);
+        }
+
+        return $response;
     }
 }
