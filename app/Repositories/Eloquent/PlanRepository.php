@@ -64,7 +64,7 @@ class PlanRepository implements PlanRepositoryInterface
                             }
                         })
                         ->orderBy('name', $orderBy)
-                        ->paginate($totalPerPage);
+                        ->paginate($totalPerPage, ['*'], 'page', $page);
         return new PaginationEloquentAdapter($results);
     }
 
