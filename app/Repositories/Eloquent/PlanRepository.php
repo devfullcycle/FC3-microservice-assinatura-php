@@ -63,8 +63,12 @@ class PlanRepository implements PlanRepositoryInterface
         if (! $model = $this->model->find($plan->id())) {
             return null;
         }
+        $model->update([
+            'name' => $plan->name,
+            'description' => $plan->description
+        ]);
 
-        return $plan;
+        return $this->convertModelToEntity($model);
     }
 
     public function delete(string $id): bool
