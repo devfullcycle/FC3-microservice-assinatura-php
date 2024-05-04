@@ -21,10 +21,9 @@ class GetPlansUseCase
             page: $input->page,
             totalPerPage: $input->totalPerPage
         );
-        $items = array_map(fn ($entity) => OutputPlanDTO::fromEntity($entity), $response->items());
 
         return new OutputPlansDTO(
-            items: $items,
+            items: $this->convertStdClassToDTO($response->items()),
             total: $response->total(),
             last_page: $response->lastPage(),
             first_page: $response->firstPage(),
@@ -32,5 +31,19 @@ class GetPlansUseCase
             next_page: $response->nextPage(),
             previous_page: $response->previousPage(),
         );
+    }
+
+    /**
+     * @return array<OutputPlanDTO>
+     */
+    private function convertStdClassToDTO(array $items = []): array
+    {
+        return array_map(function ($stdClass) {
+            return new OutputPlanDTO(
+                id: $stdClass->id,
+                name: $stdClass->name,
+                description: $stdClass->description,
+            );
+        }, $items);
     }
 }
