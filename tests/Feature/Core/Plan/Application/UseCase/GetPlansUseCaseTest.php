@@ -39,7 +39,6 @@ test('should get plans with paginate (page 2)', function () {
     expect($response->previous_page)->toBe(1);
 });
 
-
 test('should get plans with paginate (with filter)', function () {
     Model::factory()->count(25)->create();
     Model::factory()->count(25)->create(['name' => 'plan filter']);
