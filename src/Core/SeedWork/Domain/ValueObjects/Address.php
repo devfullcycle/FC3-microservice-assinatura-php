@@ -20,11 +20,11 @@ class Address
     public function ensureIsValid(): void
     {
         if (
-            strlen($this->street) < 2 ||
-            strlen($this->city) < 2 ||
-            strlen($this->state) < 2 ||
-            strlen($this->country) < 2 ||
-            strlen($this->zipCode) < 8
+            strlen($this->street) <= 2 ||
+            strlen($this->city) <= 2 ||
+            strlen($this->state) <= 2 ||
+            strlen($this->country) <= 2 ||
+            strlen($this->zipCode) <= 8
         ) {
             throw new InvalidArgumentException(sprintf('<%s> does not allow the value', static::class));
         }
