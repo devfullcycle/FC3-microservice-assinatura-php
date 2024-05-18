@@ -54,3 +54,24 @@ test('should throws exceptions when string max length - custom length', function
 test('should throws exceptions when string max length - custom length - custom message', function () {
     DomainValidator::strCanNullAndMaxLength(value: 'abcd', length: 2, exceptionMessage: 'need be less 2');
 })->throws(EntityValidationException::class, 'need be less 2');
+
+test('should be throws exceptions when age is less 0', function () {
+    DomainValidator::ageIsValid(age: -1);
+})->throws(EntityValidationException::class, 'The age is invalid');
+
+test('should be throws exceptions when age is less 0 - custom message', function () {
+    DomainValidator::ageIsValid(age: -1, exceptionMessage: 'The age need be greater than 0');
+})->throws(EntityValidationException::class, 'The age need be greater than 0');
+
+test('should be throws exceptions when age is greater 150', function () {
+    DomainValidator::ageIsValid(age: 151);
+})->throws(EntityValidationException::class, 'The age is invalid');
+
+test('should be throws exceptions when age is greater 150 - custom message', function () {
+    DomainValidator::ageIsValid(age: 151, exceptionMessage: 'The age need be less than 150');
+})->throws(EntityValidationException::class, 'The age need be less than 150');
+
+test('should validate age is valid', function () {
+    DomainValidator::ageIsValid(age: 50);
+    expect(true)->toBeTrue();
+});
