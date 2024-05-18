@@ -37,7 +37,7 @@ class DomainValidator
     public static function ageIsValid(int $age, ?string $exceptionMessage = null): void
     {
         if (! ($age > 0 && $age < 150)) {
-            throw new EntityValidationException($exceptionMessage ?? "The age is invalid");
+            throw new EntityValidationException($exceptionMessage ?? 'The age is invalid');
         }
     }
 }
