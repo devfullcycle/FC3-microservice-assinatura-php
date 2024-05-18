@@ -52,3 +52,41 @@ test('should use uuid passed', function () {
     expect($subscription->id)->toBe($id);
     expect($subscription->id())->toBe((string) $id);
 });
+
+test('should update plan', function () {
+    expect($this->subscription->plan->name)->toBe($this->plan->name);
+
+    $newPlan = new Plan(name: 'Premium', description: 'Premium plan');
+    $this->subscription->updatePlan($newPlan);
+    expect($this->subscription->plan->name)->toBe($newPlan->name);
+});
+
+test('should update update Last Billing', function () {
+    expect($this->subscription->lastBilling->format('Y-m-d'))->toBe('2000-12-12');
+
+    $this->subscription->updateLastBilling(new DateTime('2026-01-25'));
+    expect($this->subscription->lastBilling->format('Y-m-d'))->toBe('2026-01-25');
+});
+
+test('should update update ends at', function () {
+    expect($this->subscription->endsAt->format('Y-m-d'))->toBe('2000-12-12');
+
+    $this->subscription->updateEndsAt(new DateTime('2026-01-25'));
+    expect($this->subscription->endsAt->format('Y-m-d'))->toBe('2026-01-25');
+});
+
+test('should update active and inactive', function () {
+    expect($this->subscription->active)->toBe(true);
+    $this->subscription->inactive();
+    expect($this->subscription->active)->toBe(false);
+    $this->subscription->active();
+    expect($this->subscription->active)->toBe(true);
+});
+
+test('should cancel and disable cancel', function () {
+    expect($this->subscription->cancelled)->toBe(false);
+    $this->subscription->cancel();
+    expect($this->subscription->cancelled)->toBe(true);
+    $this->subscription->reactive();
+    expect($this->subscription->cancelled)->toBe(false);
+});
