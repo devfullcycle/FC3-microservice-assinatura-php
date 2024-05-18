@@ -30,7 +30,7 @@ class PlanCost
     {
         $expression = '/^\d{1,3}(\.\d{3})*(,\d{2})?$|^\d{1,3}(,\d{3})*(\.\d{2})?$|^\d+(\.\d{2})?$/';
         if (! preg_match($expression, $this->price)) {
-            throw new EntityValidationException('Invalid price');
+            throw new EntityValidationException(sprintf('Price %f is not valid', $this->price));
         }
     }
 }
