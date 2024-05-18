@@ -51,13 +51,13 @@ class UserSubscription
 
     public function cancel(): void
     {
-        $this->cancelled = false;
+        $this->cancelled = true;
         $this->validate();
     }
 
     public function reactive(): void
     {
-        $this->cancelled = true;
+        $this->cancelled = false;
         $this->validate();
     }
 
