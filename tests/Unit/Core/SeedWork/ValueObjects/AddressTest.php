@@ -1,7 +1,6 @@
 <?php
 
 use Core\SeedWork\Domain\ValueObjects\Address;
-use InvalidArgumentException;
 
 test('should be able to create an address', function () {
     $address = new Address(
