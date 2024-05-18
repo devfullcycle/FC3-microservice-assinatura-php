@@ -6,7 +6,7 @@ use Core\SeedWork\Domain\ValueObjects\CpfVO;
 use Core\User\Domain\Entities\User;
 use Core\UserSubscription\Domain\Entities\UserSubscription;
 
-test('should be able to create user subscription', function () {
+beforeEach(function () {
     $cpfVo = new CpfVO('937.941.550-84');
     $address = new Address(
         street: 'street',
@@ -18,7 +18,7 @@ test('should be able to create user subscription', function () {
     );
     $user = new User(name: 'John', lastName: 'Doe', age: 31, address: $address, type: $cpfVo);
     $plan = new Plan(name: 'Basic', description: 'Basic plan');
-    $subscription = new UserSubscription(
+    $this->subscription = new UserSubscription(
         user: $user,
         plan: $plan,
         endsAt: new DateTime('12-12-2000'),
@@ -26,5 +26,13 @@ test('should be able to create user subscription', function () {
         active: true,
         cancelled: false,
     );
-    expect(true)->toBeTrue();
+});
+
+test('should valid type properties', function () {
+    expect($this->subscription->user)->toBeInstanceOf(User::class);
+    expect($this->subscription->plan)->toBeInstanceOf(Plan::class);
+    expect($this->subscription->endsAt)->toBeInstanceOf(DateTime::class);
+    expect($this->subscription->lastBilling)->toBeInstanceOf(Datetime::class);
+    expect($this->subscription->active)->toBeBool();
+    expect($this->subscription->cancelled)->toBeBool();
 })->only();
