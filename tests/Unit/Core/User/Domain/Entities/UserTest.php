@@ -1,15 +1,25 @@
 <?php
 
 use Core\SeedWork\Domain\Exceptions\EntityValidationException;
+use Core\SeedWork\Domain\ValueObjects\Address;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
 use Core\User\Domain\Entities\User;
 use Faker\Factory;
+
+beforeEach(fn () => $this->addressVO = new Address(
+    city: 'São Paulo',
+    state: 'São Paulo',
+    country: 'Brasil',
+    zipCode: '12345-678',
+    street: 'Avenida Brigadeiro Faria Lima',
+));
 
 it('should access all properties', function () {
     $user = new User(
         name: 'Carlos',
         lastName: 'Ferreira',
         age: 31,
+        address: $this->addressVO,
     );
     expect($user->name)->toBe('Carlos');
     expect($user->lastName)->toBe('Ferreira');
@@ -30,6 +40,7 @@ it('should use uuid passed', function () {
         name: 'Carlos',
         lastName: 'Ferreira',
         age: 31,
+        address: $this->addressVO,
     );
     expect($user->id)->toBe($id);
     expect($user->id())->toBe((string) $id);
@@ -40,6 +51,7 @@ it('should throws exceptions when name is wrong - less 2', function () {
         name: 'Ca',
         lastName: 'Ferreira',
         age: 31,
+        address: $this->addressVO,
     );
 })->throws(EntityValidationException::class, 'The value must be at least 3 characters');
 
@@ -49,6 +61,7 @@ it('should throws exceptions when name is wrong - more 255', function () {
         name: $name,
         lastName: 'Ferreira',
         age: 31,
+        address: $this->addressVO,
     );
 })->throws(EntityValidationException::class, 'The value must not be greater than 255 characters');
 
@@ -57,6 +70,7 @@ it('should throws exceptions when lastName is wrong - less 2', function () {
         name: 'Carlos',
         lastName: 'Fe',
         age: 31,
+        address: $this->addressVO,
     );
 })->throws(EntityValidationException::class, 'The value must be at least 3 characters');
 
@@ -66,6 +80,7 @@ it('should throws exceptions when lastName is wrong - more 10000', function () {
         name: 'Carlos',
         lastName: $lastName,
         age: 31,
+        address: $this->addressVO,
     );
 })->throws(EntityValidationException::class, 'The value must not be greater than 255 characters');
 
@@ -74,6 +89,7 @@ it('should update values entity', function () {
         name: 'Carlos',
         lastName: 'Ferreira',
         age: 31,
+        address: $this->addressVO,
     );
     $user->update(
         name: 'Carlos updated',
@@ -98,6 +114,7 @@ it('should throws exception when update entity with wrong name', function () {
         name: 'Carlos',
         lastName: 'Ferreira',
         age: 31,
+        address: $this->addressVO,
     );
     $user->update(
         name: 'Ca',
@@ -111,6 +128,7 @@ it('should throws exception when update entity with wrong lastName', function ()
         name: 'Carlos',
         lastName: 'Ferreira',
         age: 31,
+        address: $this->addressVO,
     );
     $user->update(
         name: 'Carlos',
