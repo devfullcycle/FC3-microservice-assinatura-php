@@ -20,13 +20,18 @@ class User
         $this->validate();
     }
 
-    public function update(string $name, string $lastName, int $age = null): void
+    public function update(string $name, string $lastName, ?int $age = null): void
     {
         $this->name = $name;
         $this->lastName = $lastName;
         $this->age = $age ?? $this->age;
 
         $this->validate();
+    }
+
+    public function fullName(): string
+    {
+        return $this->name.' '.$this->lastName;
     }
 
     private function validate(): void
