@@ -64,3 +64,14 @@ test('should throw an exception when creating an address with invalid country', 
         number: 1212,
     );
 })->throws(InvalidArgumentException::class);
+
+test('should throw an exception when creating an address with invalid zip code', function () {
+    new Address(
+        street: 'street',
+        city: 'city',
+        state: 'state',
+        country: 'country',
+        zipCode: '75700',
+        number: 1212,
+    );
+})->throws(InvalidArgumentException::class);
