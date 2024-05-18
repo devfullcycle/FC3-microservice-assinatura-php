@@ -5,6 +5,8 @@ namespace Core\User\Domain\Entities;
 use Core\SeedWork\Domain\Traits\MethodsMagicTrait;
 use Core\SeedWork\Domain\Validators\DomainValidator;
 use Core\SeedWork\Domain\ValueObjects\Address;
+use Core\SeedWork\Domain\ValueObjects\CnpjVO;
+use Core\SeedWork\Domain\ValueObjects\CpfVO;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
 
 class User
@@ -16,6 +18,7 @@ class User
         protected string $lastName,
         protected int $age,
         protected Address $address,
+        protected CpfVO|CnpjVO $type,
         protected ?Uuid $id = null,
     ) {
         $this->id = $this->id ?? Uuid::random();
