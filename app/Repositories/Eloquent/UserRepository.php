@@ -35,8 +35,8 @@ class UserRepository implements UserRepositoryInterface
             'country' => $user->address->country,
             'zip_code' => $user->address->zipCode,
             'number' => $user->address->number,
+            'street' => $user->address->street,
         ]);
-        $modelUser->refresh();
 
         return $this->convertModelToEntity($modelUser);
     }
