@@ -12,7 +12,7 @@ class Address
         protected string $state,
         protected string $country,
         protected string $zipCode,
-        protected ?string $number = null,
+        protected ?string $number = '',
     ) {
         $this->ensureIsValid();
     }
