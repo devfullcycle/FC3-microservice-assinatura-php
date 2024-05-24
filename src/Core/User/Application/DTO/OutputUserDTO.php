@@ -2,6 +2,7 @@
 
 namespace Core\User\Application\DTO;
 
+use Core\SeedWork\Domain\ValueObjects\CpfVO;
 use Core\User\Domain\Entities\User;
 
 readonly class OutputUserDTO
@@ -13,6 +14,7 @@ readonly class OutputUserDTO
         public string $full_name,
         public int $age,
         public string $type,
+        public string $document,
         public array $address
     ) {
     }
@@ -22,10 +24,11 @@ readonly class OutputUserDTO
         return new self(
             id: $user->id(),
             name: $user->name,
-            last_name: $user->last_name,
+            last_name: $user->lastName,
             full_name: $user->fullName(),
             age: $user->age,
-            type: $user->type->value,
+            type: $user->type instanceof CpfVO ? 'cpf' : 'cnpj',
+            document: (string) $user->type,
             address: [
                 'city' => $user->address->city,
                 'state' => $user->address->state,
