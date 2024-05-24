@@ -8,6 +8,9 @@ use Core\User\Domain\Entities\User;
 use Core\User\Domain\Repositories\UserRepositoryInterface;
 use Core\SeedWork\Domain\Exceptions\EntityNotFoundException;
 use Core\SeedWork\Domain\Repositories\PaginationInterface;
+use Core\SeedWork\Domain\ValueObjects\Address;
+use Core\SeedWork\Domain\ValueObjects\CnpjVO;
+use Core\SeedWork\Domain\ValueObjects\CpfVO;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
 
 class UserRepository implements UserRepositoryInterface
@@ -18,13 +21,24 @@ class UserRepository implements UserRepositoryInterface
 
     public function insert(User $user): User
     {
-        $model = $this->model->create([
+        $modelUser = $this->model->create([
             'id' => (string) $user->id(),
             'name' => $user->name,
-            'description' => $user->description,
+            'last_name' => $user->lastName,
+            'age' => $user->age,
+            'type' => $user->type instanceof CpfVO ? 'cpf' : 'cnpj',
+            'document' => (string) $user->type,
         ]);
+        $modelUser->address()->create([
+            'city' => $user->address->city,
+            'state' => $user->address->state,
+            'country' => $user->address->country,
+            'zip_code' => $user->address->zipCode,
+            'number' => $user->address->number,
+        ]);
+        $modelUser->refresh();
 
-        return $this->convertModelToEntity($model);
+        return $this->convertModelToEntity($modelUser);
     }
 
     public function findById(string $id): User
@@ -45,7 +59,6 @@ class UserRepository implements UserRepositoryInterface
             ->where(function ($query) use ($filter) {
                 if ($filter !== '') {
                     $query->where('name', $filter);
-                    $query->orWhere('description', 'like', "%{$filter}%");
                 }
             })
             ->orderBy('name', $orderBy)
@@ -60,7 +73,6 @@ class UserRepository implements UserRepositoryInterface
             ->where(function ($query) use ($filter) {
                 if ($filter !== '') {
                     $query->whereName($filter);
-                    $query->orWhere('description', 'like', "%{$filter}%");
                 }
             })
             ->orderBy('name', $orderBy)
@@ -72,7 +84,7 @@ class UserRepository implements UserRepositoryInterface
     public function update(User $user): ?User
     {
         if (! $model = $this->model->find($user->id())) {
-            return null;
+            throw new EntityNotFoundException('User not found');
         }
         $model->update([
             'name' => $user->name,
@@ -85,7 +97,7 @@ class UserRepository implements UserRepositoryInterface
     public function delete(string $id): bool
     {
         if (! $model = $this->model->find($id)) {
-            return false;
+            throw new EntityNotFoundException('User not found');
         }
         $model->delete();
 
@@ -97,7 +109,17 @@ class UserRepository implements UserRepositoryInterface
         return new User(
             id: new Uuid($model->id),
             name: $model->name,
-            description: $model->description
+            lastName: $model->last_name,
+            age: $model->age,
+            address: new Address(
+                street: $model->address->street,
+                city: $model->address->city,
+                state: $model->address->state,
+                country: $model->address->country,
+                zipCode: $model->address->zip_code,
+                number: $model->address->number
+            ),
+            type: $model->type === 'cpf' ? new CpfVO($model->document) : new CnpjVO($model->document),
         );
     }
 }
