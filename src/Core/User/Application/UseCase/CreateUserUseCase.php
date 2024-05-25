@@ -5,13 +5,17 @@ namespace Core\User\Application\UseCase;
 use Core\SeedWork\Domain\ValueObjects\Address;
 use Core\User\Application\DTO\CreateUserDTO;
 use Core\User\Application\DTO\OutputUserDTO;
+use Core\User\Application\Interfaces\UserManagerEventInterface;
 use Core\User\Domain\Entities\User;
+use Core\User\Domain\Events\UserCreatedEvent;
 use Core\User\Domain\Repositories\UserRepositoryInterface;
 
 class CreateUserUseCase
 {
-    public function __construct(private UserRepositoryInterface $repository)
-    {
+    public function __construct(
+        private UserRepositoryInterface $repository,
+        private UserManagerEventInterface $eventUser,
+    ) {
     }
 
     public function execute(CreateUserDTO $dto): OutputUserDTO
@@ -23,7 +27,13 @@ class CreateUserUseCase
             address: $dto->address,
             type: $dto->type
         );
-        $entity = $this->repository->insert($user);
+        try {
+            $entity = $this->repository->insert($user);
+            $this->eventUser->dispatch(new UserCreatedEvent($entity));
+        } catch (\Throwable $th) {
+            // rollback insert (transaction)
+            throw $th;
+        }
 
         return OutputUserDTO::fromEntity($entity);
     }
