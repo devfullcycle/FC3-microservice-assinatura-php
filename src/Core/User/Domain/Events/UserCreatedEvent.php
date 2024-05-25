@@ -6,7 +6,7 @@ use Core\SeedWork\Domain\Events\EventDomainInterface;
 use Core\SeedWork\Domain\ValueObjects\CpfVO;
 use Core\User\Domain\Entities\User;
 
-class UserEvent implements EventDomainInterface
+class UserCreatedEvent implements EventDomainInterface
 {
     public function __construct(private User $user)
     {
