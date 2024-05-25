@@ -5,7 +5,7 @@ namespace Core\User\Application\UseCase;
 use Core\SeedWork\Domain\ValueObjects\Address;
 use Core\User\Application\DTO\CreateUserDTO;
 use Core\User\Application\DTO\OutputUserDTO;
-use Core\User\Application\Interfaces\UserManagerEventInterface;
+use Core\User\Application\Interfaces\UserCreatedEventInterface;
 use Core\User\Domain\Entities\User;
 use Core\User\Domain\Events\UserCreatedEvent;
 use Core\User\Domain\Repositories\UserRepositoryInterface;
@@ -14,7 +14,7 @@ class CreateUserUseCase
 {
     public function __construct(
         private UserRepositoryInterface $repository,
-        private UserManagerEventInterface $eventUser,
+        private UserCreatedEventInterface $eventUser,
     ) {
     }
 
