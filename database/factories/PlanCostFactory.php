@@ -19,7 +19,7 @@ class PlanCostFactory extends Factory
     {
         return [
             'id' => fake()->uuid(),
-            'price' => fake()->randomFloat(2, 0, 1000),
+            'price' => 1.00,
             'recurrence_period' => fake()->randomElement(array_column(RecurrencePeriodEnum::cases(), 'value')),
         ];
     }
