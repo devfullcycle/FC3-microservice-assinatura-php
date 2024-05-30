@@ -9,4 +9,6 @@ interface UserSubscriptionRepositoryInterface
     public function save(UserSubscription $userSubscription): UserSubscription;
 
     public function getByID(string $id): UserSubscription;
+
+    public function getByUserId(string $userId): UserSubscription;
 }
