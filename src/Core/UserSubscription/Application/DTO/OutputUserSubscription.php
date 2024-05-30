@@ -9,6 +9,7 @@ use Core\UserSubscription\Domain\Entities\UserSubscription;
 readonly class OutputUserSubscription
 {
     public function __construct(
+        public string $id,
         public OutputUserDTO $user,
         public OutputPlanDTO $plan,
         public string $ends_at,
@@ -21,6 +22,7 @@ readonly class OutputUserSubscription
     public static function fromEntity(UserSubscription $userSubscription): self
     {
         return new self(
+            id: $userSubscription->id(),
             user: OutputUserDTO::fromEntity($userSubscription->user),
             plan: OutputPlanDTO::fromEntity($userSubscription->plan),
             ends_at: $userSubscription->endsAt->format('Y-m-d H:i:s'),
