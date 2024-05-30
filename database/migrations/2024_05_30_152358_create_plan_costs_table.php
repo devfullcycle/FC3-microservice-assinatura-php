@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('plan_costs', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('price');
+            $table->double('price', 11, 4);
             $table->enum('recurrence_period', array_column(RecurrencePeriodEnum::cases(), 'value'));
             $table->timestamps();
         });
