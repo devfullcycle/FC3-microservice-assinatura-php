@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Plan\Application\DTO;
+namespace Core\UserSubscription\Application\DTO;
 
 readonly class GetByIDSubscriptionDTO
 {

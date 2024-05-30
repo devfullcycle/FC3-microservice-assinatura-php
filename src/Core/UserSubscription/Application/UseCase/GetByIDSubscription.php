@@ -2,8 +2,8 @@
 
 namespace Core\UserSubscription\Application\UseCase;
 
-use Core\Plan\Application\DTO\GetByIDSubscriptionDTO;
-use Core\Plan\Application\DTO\OutputUserSubscription;
+use Core\UserSubscription\Application\DTO\GetByIDSubscriptionDTO;
+use Core\UserSubscription\Application\DTO\OutputUserSubscription;
 use Core\UserSubscription\Domain\Repositories\UserSubscriptionRepositoryInterface;
 
 class GetByIDSubscription

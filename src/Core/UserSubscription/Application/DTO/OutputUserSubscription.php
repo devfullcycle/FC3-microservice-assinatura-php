@@ -1,10 +1,9 @@
 <?php
 
-namespace Core\Plan\Application\DTO;
+namespace Core\UserSubscription\Application\DTO;
 
-use Core\Plan\Domain\Entities\Plan;
+use Core\Plan\Application\DTO\OutputPlanDTO;
 use Core\User\Application\DTO\OutputUserDTO;
-use Core\User\Domain\Entities\User;
 use Core\UserSubscription\Domain\Entities\UserSubscription;
 
 readonly class OutputUserSubscription

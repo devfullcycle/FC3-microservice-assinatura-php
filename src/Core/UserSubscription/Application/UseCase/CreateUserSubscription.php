@@ -2,8 +2,8 @@
 
 namespace Core\UserSubscription\Application\UseCase;
 
-use Core\Plan\Application\DTO\CreateUserSubscriptionDTO;
-use Core\Plan\Application\DTO\OutputUserSubscription;
+use Core\UserSubscription\Application\DTO\CreateUserSubscriptionDTO;
+use Core\UserSubscription\Application\DTO\OutputUserSubscription;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 use Core\User\Domain\Entities\User;
