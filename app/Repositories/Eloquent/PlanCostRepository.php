@@ -21,7 +21,7 @@ class PlanCostRepository implements PlanCostRepositoryInterface
     {
         $model = $this->model->create([
             'id' => (string) $planCost->id(),
-            'price' => $planCost->name,
+            'price' => $planCost->price,
             'recurrence_period' => $planCost->recurrencePeriod->value,
         ]);
 
