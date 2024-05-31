@@ -25,7 +25,7 @@ class SubscriptionTransactionRepository implements SubscriptionTransactionInterf
         $dataDb = $this->model->create([
             'id' => (string) $subscriptionTransaction->id(),
             'user_id' => (string) $subscriptionTransaction->user->id(),
-            'plan_cost_id' => (string) $subscriptionTransaction->planCost->id(),
+            'plan_cost_id' => (string) $subscriptionTransaction->plan->id(),
             'date_payment' => $subscriptionTransaction->datePayment->format('Y-m-d'),
             'amount' => $subscriptionTransaction->amount,
         ]);
