@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\Address as AddressModel;
-use App\Models\User as UserModel;
 use App\Models\Plan as PlanModel;
+use App\Models\User as UserModel;
 use Core\UserSubscription\Application\DTO\CreateUserSubscriptionDTO;
 use Core\UserSubscription\Application\DTO\OutputUserSubscription;
 use Core\UserSubscription\Application\UseCase\CreateUserSubscription;
@@ -32,6 +32,6 @@ test('should create new user subscription', function () {
     expect($response->id)->not->toBeNull();
     assertDatabaseHas('user_subscriptions', [
         'user_id' => $user->id,
-        'plan_id' => $plan->id
+        'plan_id' => $plan->id,
     ]);
 });

@@ -14,7 +14,6 @@ use DateTime;
 
 class CreateSubscriptionTransaction
 {
-
     public function __construct(
         private SubscriptionTransactionInterface $repository,
         private UserRepositoryInterface $userRepository,

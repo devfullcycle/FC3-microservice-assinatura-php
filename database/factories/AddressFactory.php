@@ -24,7 +24,7 @@ class AddressFactory extends Factory
             'zip_code' => '75700-000', // fake()->postcode(),
             'city' => fake()->city(),
             'state' => 'state_x', //fake()->stateAbbr(),
-            'country' => 'country_x' // fake()->countryCode(),
+            'country' => 'country_x', // fake()->countryCode(),
         ];
     }
 }

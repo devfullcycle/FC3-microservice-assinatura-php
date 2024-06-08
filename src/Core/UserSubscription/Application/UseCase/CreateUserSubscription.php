@@ -2,12 +2,12 @@
 
 namespace Core\UserSubscription\Application\UseCase;
 
-use Core\UserSubscription\Application\DTO\CreateUserSubscriptionDTO;
-use Core\UserSubscription\Application\DTO\OutputUserSubscription;
 use Core\Plan\Domain\Entities\Plan;
 use Core\Plan\Domain\Repositories\PlanRepositoryInterface;
 use Core\User\Domain\Entities\User;
 use Core\User\Domain\Repositories\UserRepositoryInterface;
+use Core\UserSubscription\Application\DTO\CreateUserSubscriptionDTO;
+use Core\UserSubscription\Application\DTO\OutputUserSubscription;
 use Core\UserSubscription\Domain\Entities\UserSubscription;
 use Core\UserSubscription\Domain\Repositories\UserSubscriptionRepositoryInterface;
 use DateTime;

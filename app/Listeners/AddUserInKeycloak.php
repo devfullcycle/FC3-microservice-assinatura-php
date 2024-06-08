@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use Core\User\Domain\Events\UserCreatedEvent;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 
 class AddUserInKeycloak

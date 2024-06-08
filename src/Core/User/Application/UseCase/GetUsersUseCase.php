@@ -43,7 +43,7 @@ class GetUsersUseCase
                 id: $stdClass->id,
                 name: $stdClass->name,
                 last_name: $stdClass->last_name,
-                full_name: $stdClass->name . ' ' . $stdClass->last_name,
+                full_name: $stdClass->name.' '.$stdClass->last_name,
                 age: $stdClass->age,
                 address: [
                     'street' => $stdClass->address->street,

@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Eloquent;
 
-use Core\SeedWork\Domain\ValueObjects\Uuid;
 use App\Models\UserSubscription as Model;
 use Core\Plan\Domain\Entities\Plan;
 use Core\SeedWork\Domain\Exceptions\EntityNotFoundException;
 use Core\SeedWork\Domain\ValueObjects\Address;
 use Core\SeedWork\Domain\ValueObjects\CnpjVO;
 use Core\SeedWork\Domain\ValueObjects\CpfVO;
+use Core\SeedWork\Domain\ValueObjects\Uuid;
 use Core\User\Domain\Entities\User;
 use Core\UserSubscription\Domain\Entities\UserSubscription;
 use Core\UserSubscription\Domain\Repositories\UserSubscriptionRepositoryInterface;
@@ -64,7 +64,7 @@ class UserSubscriptionRepository implements UserSubscriptionRepositoryInterface
             zipCode: $model->user->address->zip_code,
             number: $model->user->address->number
         );
-        
+
         $user = new User(
             id: new Uuid($model->user->id),
             lastName: $model->user->last_name,
@@ -73,13 +73,13 @@ class UserSubscriptionRepository implements UserSubscriptionRepositoryInterface
             address: $address,
             type: $model->user->type === 'cpf' ? new CpfVO($model->user->document) : new CnpjVO($model->user->document),
         );
-        
+
         $plan = new Plan(
             id: new Uuid($model->plan->id),
             name: $model->plan->name,
             description: $model->plan->description,
         );
-        
+
         return new UserSubscription(
             id: new Uuid($model->id),
             user: $user,

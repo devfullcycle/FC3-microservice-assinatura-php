@@ -44,7 +44,7 @@ class SubscriptionTransactionRepository implements SubscriptionTransactionInterf
             zipCode: $model->user->address->zip_code,
             number: $model->user->address->number
         );
-        
+
         $user = new User(
             id: new Uuid($model->user->id),
             lastName: $model->user->last_name,
@@ -53,13 +53,13 @@ class SubscriptionTransactionRepository implements SubscriptionTransactionInterf
             address: $address,
             type: $model->user->type === 'cpf' ? new CpfVO($model->user->document) : new CnpjVO($model->user->document),
         );
-        
+
         $planCost = new PlanCost(
             id: new Uuid($model->planCost->id),
             price: $model->planCost->price,
             recurrencePeriod: RecurrencePeriodEnum::from($model->planCost->recurrence_period),
         );
-        
+
         return new SubscriptionTransaction(
             id: new Uuid($model->id),
             user: $user,

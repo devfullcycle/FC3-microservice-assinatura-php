@@ -2,7 +2,6 @@
 
 namespace Core\SubscriptionTransaction\Application\DTO;
 
-use Core\Plan\Application\DTO\OutputPlanDTO;
 use Core\PlanCost\Application\DTO\OutputPlanCostDTO;
 use Core\SubscriptionTransaction\Domain\Entities\SubscriptionTransaction;
 use Core\User\Application\DTO\OutputUserDTO;

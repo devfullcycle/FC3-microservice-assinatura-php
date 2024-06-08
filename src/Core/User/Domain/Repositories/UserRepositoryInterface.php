@@ -2,8 +2,8 @@
 
 namespace Core\User\Domain\Repositories;
 
-use Core\User\Domain\Entities\User;
 use Core\SeedWork\Domain\Repositories\PaginationInterface;
+use Core\User\Domain\Entities\User;
 
 interface UserRepositoryInterface
 {

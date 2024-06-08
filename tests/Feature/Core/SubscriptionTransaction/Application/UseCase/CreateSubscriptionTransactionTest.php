@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\Address as AddressModel;
-use App\Models\User as UserModel;
 use App\Models\PlanCost as PlanCostModel;
+use App\Models\User as UserModel;
 use Core\SubscriptionTransaction\Application\DTO\CreateSubscriptionTransactionDTO;
 use Core\SubscriptionTransaction\Application\DTO\OutputSubscriptionDTO;
 use Core\SubscriptionTransaction\Application\UseCase\CreateSubscriptionTransaction;
@@ -29,6 +29,6 @@ test('should create new subscription transaction', function () {
     expect($response->amount)->toBe(1.00);
     assertDatabaseHas('subscription_transactions', [
         'user_id' => $user->id,
-        'plan_cost_id' => $planCost->id
+        'plan_cost_id' => $planCost->id,
     ]);
 });

@@ -3,7 +3,6 @@
 namespace Core\PlanCost\Application\DTO;
 
 use Core\PlanCost\Domain\Entities\PlanCost;
-use Core\PlanCost\Domain\Enums\RecurrencePeriodEnum;
 
 readonly class OutputPlanCostDTO
 {

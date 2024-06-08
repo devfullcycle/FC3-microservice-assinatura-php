@@ -4,14 +4,14 @@ namespace App\Repositories\Eloquent;
 
 use App\Adapters\PaginationEloquentAdapter;
 use App\Models\User as Model;
-use Core\User\Domain\Entities\User;
-use Core\User\Domain\Repositories\UserRepositoryInterface;
 use Core\SeedWork\Domain\Exceptions\EntityNotFoundException;
 use Core\SeedWork\Domain\Repositories\PaginationInterface;
 use Core\SeedWork\Domain\ValueObjects\Address;
 use Core\SeedWork\Domain\ValueObjects\CnpjVO;
 use Core\SeedWork\Domain\ValueObjects\CpfVO;
 use Core\SeedWork\Domain\ValueObjects\Uuid;
+use Core\User\Domain\Entities\User;
+use Core\User\Domain\Repositories\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface
 {

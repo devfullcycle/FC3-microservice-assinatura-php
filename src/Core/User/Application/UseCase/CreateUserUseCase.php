@@ -2,7 +2,6 @@
 
 namespace Core\User\Application\UseCase;
 
-use Core\SeedWork\Domain\ValueObjects\Address;
 use Core\User\Application\DTO\CreateUserDTO;
 use Core\User\Application\DTO\OutputUserDTO;
 use Core\User\Application\Interfaces\UserCreatedEventInterface;
