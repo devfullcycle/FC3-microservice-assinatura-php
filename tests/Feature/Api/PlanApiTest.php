@@ -3,6 +3,8 @@
 use App\Models\Plan;
 
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertDatabaseMissing;
+use function Pest\Laravel\deleteJson;
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\postJson;
 use function Pest\Laravel\putJson;
@@ -167,4 +169,14 @@ test('should update plan', function () {
         'name' => 'update name',
         'description' => 'update description',
     ]);
+});
+
+test('should delete plan', function () {
+    $plan = Plan::factory()->create();
+    
+    deleteJson(
+        uri: route('plans.destroy', $plan->id)
+    )->assertNoContent();
+
+    assertDatabaseMissing('plans', ['id' => $plan->id]);
 });
