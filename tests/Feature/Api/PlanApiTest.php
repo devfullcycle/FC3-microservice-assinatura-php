@@ -2,8 +2,10 @@
 
 use App\Models\Plan;
 
+use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\getJson;
 use function Pest\Laravel\postJson;
+use function Pest\Laravel\putJson;
 
 test('should get all plans - with empty plans', function () {
     getJson(route('plans.index'))
@@ -111,6 +113,17 @@ describe('validations', function () {
                 'description',
             ]);
     });
+    test('should validate update plan', function () {
+        $plan = Plan::factory()->create();
+        putJson(
+            uri: route('plans.update', $plan->id),
+            data: []
+        )->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'name',
+                'description',
+            ]);
+    });
 });
 
 test('should return plan by id', function () {
@@ -128,4 +141,30 @@ test('should return plan by id', function () {
 
 test('should return 404 when plan not found', function () {
     getJson(route('plans.show', 'fake_id'))->assertNotFound();
+});
+
+test('should update plan', function () {
+    $plan = Plan::factory()->create();
+    $response = putJson(
+        uri: route('plans.update', $plan->id),
+        data: [
+            'name' => 'update name',
+            'description' => 'update description',
+        ]
+    )->assertOk()
+        ->assertJsonStructure([
+            'data' => [
+                'id',
+                'name',
+                'description',
+            ],
+        ]);
+
+    expect($response['data']['name'])->toBe('update name');
+    expect($response['data']['description'])->toBe('update description');
+    assertDatabaseHas('plans', [
+        'id' => $plan->id,
+        'name' => 'update name',
+        'description' => 'update description',
+    ]);
 });
