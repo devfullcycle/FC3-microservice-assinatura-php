@@ -17,9 +17,9 @@ class PlanController extends Controller
     {
         $plans = $useCase->execute(new InputPlansDTO(
             filter: $request->input('filter', ''),
-            orderBy: $request->input('orderBy', 'DESC'),
+            orderBy: $request->input('order_by', 'DESC'),
             page: $request->input('page', 1),
-            totalPerPage: $request->input('perPage', 15),
+            totalPerPage: $request->input('per_page', 15),
         ));
 
         return PlanResource::collection(collect($plans->items))->additional([
