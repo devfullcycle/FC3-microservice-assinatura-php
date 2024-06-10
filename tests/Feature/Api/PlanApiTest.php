@@ -125,3 +125,7 @@ test('should return plan by id', function () {
             ],
         ]);
 });
+
+test('should return 404 when plan not found', function () {
+    getJson(route('plans.show', 'fake_id'))->assertNotFound();
+});
