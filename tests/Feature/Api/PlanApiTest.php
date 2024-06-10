@@ -98,3 +98,17 @@ test('should create new plan', function () {
             ]
         ]);
 });
+
+describe('validations', function () {
+    test('should validate create plan', function () {
+        postJson(
+            uri: route('plans.store'),
+            data: [],
+            headers: ['Accept' => 'application/json']
+        )->assertStatus(422)
+        ->assertJsonValidationErrors([
+            'name',
+            'description',
+        ]);
+    });
+});
