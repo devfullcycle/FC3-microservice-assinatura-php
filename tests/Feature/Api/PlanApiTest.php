@@ -180,3 +180,7 @@ test('should delete plan', function () {
 
     assertDatabaseMissing('plans', ['id' => $plan->id]);
 });
+
+test('should return 404 when try delete plan not found', function () {
+    deleteJson(route('plans.destroy', 'fake_id'))->assertNotFound();
+});
