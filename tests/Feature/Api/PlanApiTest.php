@@ -171,6 +171,16 @@ test('should update plan', function () {
     ]);
 });
 
+test('should return 404 when try update plan not found', function () {
+    putJson(
+        uri:route('plans.update', 'fake_id'),
+        data: [
+            'name' => 'update name',
+            'description' => 'update description',
+        ],
+    )->assertNotFound();
+});
+
 test('should delete plan', function () {
     $plan = Plan::factory()->create();
     
