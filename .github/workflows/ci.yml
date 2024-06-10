@@ -1,4 +1,4 @@
-name: Laravel
+name: CI
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  laravel-tests:
+  ci:
 
     runs-on: ubuntu-latest
 
