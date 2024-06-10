@@ -3,6 +3,7 @@
 use App\Models\Plan;
 
 use function Pest\Laravel\getJson;
+use function Pest\Laravel\postJson;
 
 test('should get all plans - with empty plans', function () {
     getJson(route('plans.index'))
@@ -78,4 +79,22 @@ test('should get paginate plans - with filter', function () {
     getJson(route('plans.index') . '?filter=custom')
         ->assertOk()
         ->assertJsonCount(10, 'data');
+});
+
+test('should create new plan', function () {
+    postJson(
+        uri: route('plans.store'),
+        data: [
+            'name' => 'test name',
+            'description' => 'test description',
+        ],
+        headers: ['Accept' => 'application/json']
+    )->assertCreated()
+        ->assertJsonStructure([
+            'data' => [
+                'id',
+                'name',
+                'description',
+            ]
+        ]);
 });
