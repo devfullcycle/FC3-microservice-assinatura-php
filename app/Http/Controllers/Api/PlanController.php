@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Plans\StorePlanRequest;
 use App\Http\Resources\PlanResource;
 use Core\Plan\Application\DTO\CreatePlanDTO;
+use Core\Plan\Application\DTO\InputPlanDTO;
 use Core\Plan\Application\DTO\InputPlansDTO;
 use Core\Plan\Application\UseCase\CreatePlanUseCase;
 use Core\Plan\Application\UseCase\GetPlansUseCase;
+use Core\Plan\Application\UseCase\GetPlanUseCase;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -55,9 +57,11 @@ class PlanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(GetPlanUseCase $useCase, string $id)
     {
-        //
+        $plan = $useCase->execute(new InputPlanDTO(id: $id));
+
+        return new PlanResource($plan);
     }
 
     /**
