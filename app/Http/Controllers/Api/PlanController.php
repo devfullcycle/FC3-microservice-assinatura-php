@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Plans\StorePlanRequest;
+use App\Http\Requests\Plans\UpdatePlanRequest;
 use App\Http\Resources\PlanResource;
 use Core\Plan\Application\DTO\CreatePlanDTO;
+use Core\Plan\Application\DTO\EditPlanDTO;
 use Core\Plan\Application\DTO\InputPlanDTO;
 use Core\Plan\Application\DTO\InputPlansDTO;
 use Core\Plan\Application\UseCase\CreatePlanUseCase;
+use Core\Plan\Application\UseCase\EditPlanUseCase;
 use Core\Plan\Application\UseCase\GetPlansUseCase;
 use Core\Plan\Application\UseCase\GetPlanUseCase;
 use Illuminate\Http\Request;
@@ -67,9 +70,15 @@ class PlanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EditPlanUseCase $useCase, UpdatePlanRequest $request, string $id)
     {
-        //
+        $plan = $useCase->execute(new EditPlanDTO(
+            id: $id,
+            name: $request->name,
+            description: $request->description,
+        ));
+
+        return new PlanResource($plan);
     }
 
     /**
