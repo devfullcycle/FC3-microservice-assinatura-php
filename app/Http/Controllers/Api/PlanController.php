@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Plans\StorePlanRequest;
 use App\Http\Resources\PlanResource;
+use Core\Plan\Application\DTO\CreatePlanDTO;
 use Core\Plan\Application\DTO\InputPlansDTO;
+use Core\Plan\Application\UseCase\CreatePlanUseCase;
 use Core\Plan\Application\UseCase\GetPlansUseCase;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PlanController extends Controller
 {
@@ -36,9 +40,16 @@ class PlanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePlanRequest $request, CreatePlanUseCase $useCase)
     {
-        //
+        $plan = $useCase->execute(new CreatePlanDTO(
+            name: $request->name,
+            description: $request->description,
+        ));
+
+        return (new PlanResource($plan))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
