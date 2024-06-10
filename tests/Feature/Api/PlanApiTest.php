@@ -106,9 +106,22 @@ describe('validations', function () {
             data: [],
             headers: ['Accept' => 'application/json']
         )->assertStatus(422)
-        ->assertJsonValidationErrors([
-            'name',
-            'description',
-        ]);
+            ->assertJsonValidationErrors([
+                'name',
+                'description',
+            ]);
     });
+});
+
+test('should return plan by id', function () {
+    $plan = Plan::factory()->create();
+    getJson(route('plans.show', $plan->id))
+        ->assertOk()
+        ->assertJsonStructure([
+            'data' => [
+                'id',
+                'name',
+                'description',
+            ],
+        ]);
 });
