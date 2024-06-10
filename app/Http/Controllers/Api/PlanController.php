@@ -11,6 +11,7 @@ use Core\Plan\Application\DTO\EditPlanDTO;
 use Core\Plan\Application\DTO\InputPlanDTO;
 use Core\Plan\Application\DTO\InputPlansDTO;
 use Core\Plan\Application\UseCase\CreatePlanUseCase;
+use Core\Plan\Application\UseCase\DeletePlanUseCase;
 use Core\Plan\Application\UseCase\EditPlanUseCase;
 use Core\Plan\Application\UseCase\GetPlansUseCase;
 use Core\Plan\Application\UseCase\GetPlanUseCase;
@@ -84,8 +85,12 @@ class PlanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DeletePlanUseCase $useCase, string $id)
     {
-        //
+        $response = $useCase->execute(new InputPlanDTO(id: $id));
+
+        return response()->json([
+            'deleted' => $response->deleted
+        ], $response->deleted ? Response::HTTP_NO_CONTENT : Response::HTTP_BAD_REQUEST);
     }
 }
